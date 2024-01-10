@@ -17,3 +17,26 @@ function getComputerChoice() {
     return computerChoice;
 }
 
+function playRound(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
+        return "Empate!";
+    }
+    else if (playerSelection === "Rock" && computerSelection === "Scissors" || playerSelection === "Paper" && computerSelection === "Rock" || playerSelection === "Scissors" && computerSelection === "Paper") {
+        return "You win! "+ playerSelection + " beats " + computerSelection + "!"
+    }
+    else {
+        return "You lose! " + computerSelection + " beats " + playerSelection + "!"
+    }
+}
+
+const playerSelection = "Rock";
+const computerSelection = getComputerChoice();
+
+console.log("Player choice:");
+console.log(playerSelection);
+
+console.log("Computer choice:")
+console.log(computerSelection);
+
+console.log("Juego:")
+console.log(playRound(playerSelection, computerSelection));
