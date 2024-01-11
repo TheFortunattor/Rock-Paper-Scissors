@@ -1,3 +1,8 @@
+let playerSelection;
+let computerSelection;
+let playerScore = 0;
+let computerScore = 0;
+let counter = 1;
 function getComputerChoice() {
     //Let the computer choose a number between 1 and 3
     let computerChoice = Math.floor(Math.random() * 3) + 1;
@@ -19,13 +24,18 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
+        playerScore++;
+        computerScore++;
         return "It's a tie!";
     }
     else if (playerSelection === "Rock" && computerSelection === "Scissors" || playerSelection === "Paper" && computerSelection === "Rock" || playerSelection === "Scissors" && computerSelection === "Paper") {
-        return "You win! " + playerSelection + " beats " + computerSelection + "!"
+        playerScore++;
+        return "You win! " + playerSelection + " beats " + computerSelection + "!";
+
     }
     else {
-        return "You lose! " + computerSelection + " beats " + playerSelection + "!"
+        computerScore++;
+        return "You lose! " + computerSelection + " beats " + playerSelection + "!";
     }
 }
 function capitalizeInput(playerInput) {
@@ -46,12 +56,8 @@ function checkPlayerInput(playerInput) {
     let keepGoing = true;
     while(keepGoing) {
         playerInput = capitalizeInput(playerInput);
-        console.log("value before IF statement:")
-        console.log(playerInput);
         if (playerInput != "Rock" && playerInput != "Paper" && playerInput != "Scissors") {
             playerInput = prompt("Wrong data! Please write either rock, paper or scissors!");
-            console.log("Value AFTER if:")
-            console.log(playerInput);
         }
         else {
             keepGoing = false;
@@ -60,17 +66,51 @@ function checkPlayerInput(playerInput) {
     return playerInput;
 }
 
-let playerSelection = prompt("Type rock paper or Scissors: ");
-// playerSelection = capitalizeInput(playerSelection);
-playerSelection = checkPlayerInput(playerSelection);
 
-const computerSelection = getComputerChoice();
 
-console.log("Player choice:");
-console.log(playerSelection);
 
-console.log("Computer choice:")
-console.log(computerSelection);
+function game() {
+    //Loop 5 times
+    for (let index = 0; index <= 4; index++) {
+        //First, let the computer select rps
+        computerSelection = getComputerChoice();
+        //Then the user
+        playerSelection = prompt("Type rock paper or Scissors: ");
+        //Check the user's input
+        playerSelection = checkPlayerInput(playerSelection);
+        //TESTING printing both selections
+        console.log("Player choice:");
+        console.log(playerSelection);
 
-// console.log("Juego:")
-// console.log(playRound(playerSelection, computerSelection));
+        console.log("Computer choice:")
+        console.log(computerSelection);
+
+        //Once that is done, play a round!
+        console.log("Juego " + counter);
+        counter++;
+        console.log(playRound(playerSelection, computerSelection));
+
+        //TESTING player score and computer score
+        console.log("Player score:");
+        console.log(playerScore);
+        console.log("Computer score:");
+        console.log(computerScore);
+        console.log("-------------------------------------------------");
+    }
+
+    //MORE TESTING
+    console.log("End results:");
+    console.log("Player score:");
+    console.log(playerScore);
+    console.log("Computer score:");
+    console.log(computerScore);
+
+    if (playerScore > computerScore) {
+        console.log("You win!");
+    }
+    else {
+        console.log("You lose! Better luck next time!");
+    }
+}
+
+game();
